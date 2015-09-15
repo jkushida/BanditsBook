@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import math
 
 def ind_max(x):
@@ -8,6 +9,7 @@ class UCB1():
   def __init__(self, counts, values):
     self.counts = counts
     self.values = values
+    print "init_UCB1"
     return
   
   def initialize(self, n_arms):
@@ -23,9 +25,11 @@ class UCB1():
 
     ucb_values = [0.0 for arm in range(n_arms)]
     total_counts = sum(self.counts)
+    #各アームごとにUCB値を求める
     for arm in range(n_arms):
       bonus = math.sqrt((2 * math.log(total_counts)) / float(self.counts[arm]))
       ucb_values[arm] = self.values[arm] + bonus
+
     return ind_max(ucb_values)
   
   def update(self, chosen_arm, reward):
